@@ -9,7 +9,14 @@
 */
 int string_length(char *s)
 {
+    int counter = 0;
 
+    while (s[counter] != '\0')
+    {
+        counter++;
+    }
+
+    return counter;
 }
 
 /*
@@ -20,7 +27,17 @@ int string_length(char *s)
 */
 char *reverse_string(char *rv, char *s)
 {
+    int str_length = string_length(s) - 1;
 
+    for (int i = 0; i <= str_length; i++)
+    {
+        // as i goes up, str_length goes down, so we'd be going backwards in the array
+        rv[i] = s[str_length - i];
+    }
+
+    rv[str_length + 1] = '\0'; //needs to know that the string needs to terminate
+
+    return rv;
 }
 
 #ifndef TESTING
@@ -37,4 +54,3 @@ int main(void)
     return 0;
 }
 #endif
-    
