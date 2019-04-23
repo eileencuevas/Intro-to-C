@@ -60,7 +60,7 @@ void mem_copy(void *dest, const void *src, int n)
 void *resize_memory(void *ptr, int old_size, int new_size)
 {
     char *temp = (char *)ptr;
-    char *char_ptr = (char *)malloc(new_size + 1);
+    char *char_ptr = malloc(new_size + 1);
 
     if (old_size > new_size)
     {
