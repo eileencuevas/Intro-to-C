@@ -12,7 +12,18 @@
 */
 char *string_dup(char *src)
 {
+    int counter = 0;
+    char *duplicate = malloc(string_length(src) + 1);
 
+    while (src[counter] != '\0')
+    {
+        duplicate[counter] = src[counter];
+        counter++;
+    }
+
+    duplicate[counter] = '\0';
+
+    return duplicate;
 }
 
 /*
@@ -24,7 +35,15 @@ char *string_dup(char *src)
 */
 void mem_copy(void *dest, const void *src, int n)
 {
+    char *char_dest = (char *)dest;
+    char *char_src = (char *)src;
 
+    for (int i = 0; i <= n; i++)
+    {
+        char_dest[i] = char_src[i];
+    }
+
+    dest = char_dest;
 }
 
 /*
@@ -40,7 +59,31 @@ void mem_copy(void *dest, const void *src, int n)
 */
 void *resize_memory(void *ptr, int old_size, int new_size)
 {
+    char *temp = (char *)ptr;
+    char *char_ptr = (char *)malloc(new_size + 1);
 
+    if (old_size > new_size)
+    {
+        // copy until the second to last, then add null character
+        int counter = 0;
+        while (counter != new_size)
+        {
+            char_ptr[counter] = temp[counter];
+            counter++;
+        }
+        char_ptr[counter] = '\0';
+    }
+    else
+    {
+        // copy the whole thing
+        for (int i = 0; i <= old_size; i++)
+        {
+            char_ptr[i] = temp[i];
+        }
+    }
+    ptr = char_ptr;
+
+    return ptr;
 }
 
 #ifndef TESTING
@@ -54,12 +97,13 @@ int main(void)
     int numbers[] = {100, 55, 4, 98, 10, 18, 90, 95, 43, 11, 47, 67, 89, 42, 49, 79};
     int n = sizeof(numbers) / sizeof(numbers[0]);
     int *target = malloc(n * sizeof(int));
-    
+
     mem_copy(target, numbers, n * sizeof(int));
 
     printf("Copied array: ");
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         printf("%d ", target[i]);
     }
 
@@ -69,12 +113,13 @@ int main(void)
     char *path = string_dup("/students/");
     int url_length = string_length(url);
     int path_length = string_length(path);
-    
+
     int new_length = url_length - 1 + path_length;
     char *new_url = resize_memory(url, url_length, new_length);
     char *p = new_url + url_length;
 
-    while (*path != '\0') {
+    while (*path != '\0')
+    {
         *p = *path;
         p++;
         path++;
