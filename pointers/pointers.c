@@ -15,13 +15,13 @@
 */
 void string_copy(char *x, char *y)
 {
-    int counter = 0;
-    while (y[counter] != '\0')
+    while (*y != '\0')
     {
-        x[counter] = y[counter];
-        counter++;
+        *x = *y;
+        x++;
+        y++;
     }
-    x[counter] = '\0';
+    *x = '\0';
 }
 
 /*

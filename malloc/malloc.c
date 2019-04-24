@@ -17,7 +17,7 @@ char *string_dup(char *src)
 
     while (src[counter] != '\0')
     {
-        duplicate[counter] = src[counter];
+        *(duplicate + counter) = *(src + counter);
         counter++;
     }
 
@@ -40,7 +40,7 @@ void mem_copy(void *dest, const void *src, int n)
 
     for (int i = 0; i <= n; i++)
     {
-        char_dest[i] = char_src[i];
+        *(char_dest + i) = *(char_src + i);
     }
 
     dest = char_dest;
@@ -68,7 +68,7 @@ void *resize_memory(void *ptr, int old_size, int new_size)
         int counter = 0;
         while (counter != new_size)
         {
-            char_ptr[counter] = temp[counter];
+            *(char_ptr + counter) = *(temp + counter);
             counter++;
         }
         char_ptr[counter] = '\0';
@@ -78,7 +78,7 @@ void *resize_memory(void *ptr, int old_size, int new_size)
         // copy the whole thing
         for (int i = 0; i <= old_size; i++)
         {
-            char_ptr[i] = temp[i];
+            *(char_ptr + i) = *(temp + i);
         }
     }
     ptr = char_ptr;
