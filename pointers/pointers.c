@@ -15,7 +15,13 @@
 */
 void string_copy(char *x, char *y)
 {
-
+    while (*y != '\0')
+    {
+        *x = *y;
+        x++;
+        y++;
+    }
+    *x = '\0';
 }
 
 /*
@@ -28,7 +34,19 @@ void string_copy(char *x, char *y)
 */
 char *find_char(char *str, int c)
 {
+    char *instance = NULL;
 
+    // loop through str
+    while (*str != '\0')
+    {
+        if (*str == c)
+        {
+            instance = str;
+        }
+        str++;
+    }
+    //return pointer
+    return instance;
 }
 
 /*
@@ -41,14 +59,35 @@ char *find_char(char *str, int c)
 */
 char *find_string(char *haystack, char *needle)
 {
+    char *instance = NULL;    // initialize as NULL (in case nothing is found)
+    while (*haystack != '\0') // loop through the haystack string
+    {
+        // if the current letter of haystack string matches first letter of needle, do the below
+        if (*haystack == *needle)
+        {
+            instance = haystack;    // set instance to point to haystack starting at current index
+            while (*needle != '\0') // loop through needle string
+            {
+                // if next letter in haystack doesn't match next letter in needle, set instance back to null
+                if (*haystack != *needle)
+                {
+                    instance = NULL;
+                }
+                haystack++;
+                needle++;
+            }
+        }
+        haystack++;
+    }
 
+    return instance;
 }
 
 #ifndef TESTING
 int main(void)
 {
-    char *found_char = find_char(hello, 'e');
-    char *found_string = find_string(world, "or");
+    char *found_char = find_char("hello", 'e');
+    char *found_string = find_string("world", "or");
 
     printf("Found char: %s\n", found_char);
     printf("Found string: %s\n", found_string);
